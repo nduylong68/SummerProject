@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1561628666 source:c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\main.cpp
+	<iostream>
+	"deck.h"
+	"players.h"
+
+1561429644 source:c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\deck.cpp
+	"deck.h"
+
+1561431722 c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\deck.h
+	<vector>
+	<string>
+	<ctime>
+	<cstdlib>
+	<algorithm>
+	<iostream>
+
+1561629015 source:c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\players.cpp
+	"players.h"
+	"winner.h"
+
+1561444868 c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\players.h
+	"deck.h"
+
+1561628484 c:\users\loc_pc\documents\codeblocks\project\learning\summerproject\winner.h
+	"deck.h"
+
+1561648165 source:e:\it\summer-master\summer-master\deck.cpp
+	"deck.h"
+
+1561629314 e:\it\summer-master\summer-master\deck.h
+	<vector>
+	<string>
+	<ctime>
+	<cstdlib>
+	<algorithm>
+	<iostream>
+
+1561648863 source:e:\it\summer-master\summer-master\main.cpp
+	<iostream>
+	"deck.h"
+	"players.h"
+
+1561647660 e:\it\summer-master\summer-master\players.h
+	"deck.h"
+
+1561648863 source:e:\it\summer-master\summer-master\players.cpp
+	"players.h"
+	"winner.h"
+
+1561649240 e:\it\summer-master\summer-master\winner.h
+	"deck.h"
+
