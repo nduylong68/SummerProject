@@ -1,8 +1,10 @@
 #include <iostream>
 #include "deck.h"
 #include "players.h"
+#include "winner.h"
 
 using namespace std;
+using namespace winner;
 
 int main(int argc, char* argv[])
 {
@@ -13,7 +15,7 @@ int main(int argc, char* argv[])
     int n;
     cout << " Number of players " << endl;
     cin >> n;
-    Players player[n];
+    vector<Players> player(n);
     vector<Cards>board;
     int current_cards_pos = 0;
     for (int i = 0; i < n; i++){
@@ -32,6 +34,7 @@ int main(int argc, char* argv[])
             player[i].hands[j].ShowCards();
             player[i].EvaluateCards(board);
         }
+         AnouncePrize(player[i].mainPoint);
         cout << "______________________" << endl;
     }
     cout << "BOARD CARDS" << endl;
@@ -40,7 +43,10 @@ int main(int argc, char* argv[])
     }
     cout << "___________________" <<endl;
 
+    cout << endl << endl ;
+    DetermineWinner(player);
 
+    return 0;
 }
 
 

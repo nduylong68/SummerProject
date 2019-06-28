@@ -2,6 +2,7 @@
 #define PLAYERS_H
 
 #include "deck.h"
+#include "winner.h"
 
 class Players{
 public:
@@ -17,4 +18,8 @@ public:
 
 };
 
+namespace winner
+{
+    void DetermineWinner(vector<Players>TheP);
+}
 #endif // PLAYERS_H
