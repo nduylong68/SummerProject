@@ -8,6 +8,10 @@ Players::Players()
     mainPoint = 0;
     auxiliaryPoint1 = 0;
     auxiliaryPoint2 = 0;
+
+    betMoney = 0;
+    bet = true;
+    TotalPlayerMoney = 4000;
 }
 
 Players::~Players()
@@ -19,13 +23,13 @@ void Players::TakeCards(Cards cc)
     hands.push_back(cc);
 }
 
-bool Players::AskPeek()
+bool Players::AskPeek(int pos)
 {
     char answer;
-    cout << "DO YOU WANT TO SEE CARDS ?  Y/N  " << endl;
+    cout <<"PLAYER " << pos+1 << " DO YOU WANT TO SEE CARDS ?  Y/N  " << endl;
     cin >> answer;
     bool result = true;
-    answer == 'Y' ? result = true : result = false ;
+    answer == 'Y' ? result = true : result = false;
     return result;
 }
 
@@ -133,118 +137,39 @@ int Players::EvaluateCards(vector<Cards>TableCards)
 
 };
 
-void winner::DetermineWinner(vector<Players> TheP)
+
+
+void Players::SetBet(int Bet_Val, int &MIP)
 {
-    int TheWinner;
-    bool Tied = false;
-    vector<int> TiedPeople;
-    vector<int> MainP;
-    int max = 0;
-    for(int i = 0; i < TheP.size(); i++)
-    {
-        int a = TheP[i].mainPoint;
-        if(a > max) max = a;
-        MainP.push_back(a);
-    }
+    betMoney = Bet_Val;
+    TotalPlayerMoney -= betMoney;
+    MIP += betMoney;
 
-    int countMainP = count(MainP.begin(), MainP.end(), max);
-    if(countMainP > 1)
-    {
-        vector<int> AuP1;
-        vector<int> PosPlayer;
-        for(int i = 0; i < MainP.size(); i++)
-          {
-              if(MainP[i] == max)
-              {
-                  AuP1.push_back(TheP[i].auxiliaryPoint1);
-                  PosPlayer.push_back(i);
-              }
-          }
-        max = 0;
-        for(int i = 0; i < AuP1.size(); i++)
-        {
-            int a = AuP1[i];
-            if(a > max) max = a;
-        }
-        int countAuP1 = count(AuP1.begin(), AuP1.end(), max);
-        if(countAuP1 > 1)
-        {
-            vector<int> AuP2;
-            vector<int> PosPlayer2;
-            for(int i = 0; i < AuP1.size(); i++)
+    cout << "Bet Money: " << betMoney << endl;
+
+}
+
+void Players::BettingProcess(int &minBet, int &MIP){
+    cout << "What is your choice ? c (call) / r (raise) / f (fold) " << endl;
+    char ans;
+    cin >> ans;
+    ans = towlower(ans);
+    if (ans == 'r'){
+        int BetVal;
+        cin >> BetVal;
+        if (BetVal > minBet)
             {
-              if(AuP1[i] == max)
-              {
-                  int needPos = PosPlayer[i];
-                  AuP2.push_back(TheP[needPos].auxiliaryPoint2);
-                  PosPlayer2.push_back(needPos);
-              }
+                minBet = BetVal;
+                SetBet(BetVal, MIP);
             }
-          max = 0;
-          for(int i = 0; i < AuP2.size(); i++)
-          {
-            int a = AuP2[i];
-            if(a > max) max = a;
-          }
-          int countAuP2 = count(AuP2.begin(), AuP2.end(), max);
-          if(countAuP2 > 1)
-          {
-              for(int i = 0; i < AuP2.size(); i++)
-              {
-                  int a = AuP2[i];
-                  if(a == max)
-                  {
-                     Tied = true;
-                     TiedPeople.push_back(PosPlayer2[i]);
-                  }
-              }
-
-          }
-          else
-          {
-              for(int i = 0; i < AuP2.size(); i++)
-              {
-                  int a = AuP2[i];
-                  if(a == max)
-                  {
-                      TheWinner = PosPlayer2[i];
-                  }
-              }
-          }
-        }
-        else
-        {
-            for(int i = 0; i < AuP1.size(); i++)
-            {
-                int a = AuP1[i];
-                if(a == max)
-                    TheWinner = PosPlayer[i];
-            }
+        else if(betMoney < minBet){
+            cout << "Invalid input money... FUCK YOU" <<endl;
+            BettingProcess(minBet, MIP);
         }
     }
-    else
+    else if (ans == 'c')
     {
-          for(int i = 0; i < MainP.size(); i++)
-          {
-              if(MainP[i] == max)
-              {
-                  TheWinner = i;
-              }
-          }
+        SetBet(minBet, MIP);
     }
-
-
-    if( Tied == true)
-    {
-        int numOfTied = TiedPeople.size();
-        cout << numOfTied << " people are tied: " << endl;
-        for(int i = 0; i < numOfTied; i++)
-        {
-            cout << "Player" << TiedPeople[i] + 1 << endl ;
-        }
-    }
-    else
-    {
-            cout << "The Winner is : Player" << TheWinner+1 << " !!!!" << endl;
-    }
+    //else bet = false;
 }

@@ -31,6 +31,7 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="commonFunction.h" />
 		<Unit filename="deck.cpp" />
 		<Unit filename="deck.h" />
 		<Unit filename="main.cpp" />

@@ -83,7 +83,6 @@ int winner::Point_Is_Flush(vector<Cards>wholeCard, int &flush1, string &flushsui
         else if(p == 2) {
             check = d;
             flushsuit = "Diamond";
-
         }
         else if(p == 3) {
             check = h;
@@ -123,7 +122,7 @@ int winner::Point_Is_Sets(vector<Cards>wholeCard, int &point1, int &point2)
             {
                 pair2 = midVal;
             }
-             if(pair1 < pair2)
+            if(pair1 < pair2)
             {
                 swap(pair1, pair2);
             }
@@ -224,6 +223,125 @@ void winner::AnouncePrize(int final_point)
                 break;
             }
         }
+}
+void winner::DetermineWinner(vector<Players> &TheP, int MIP)
+{
+    int TheWinner;
+    bool Tied = false;
+    vector<int> TiedPeople;
+    vector<int> MainP;
+    int maxs = 0;
+    for(int i = 0; i < TheP.size(); i++)
+    {
+        int a = TheP[i].mainPoint;
+        if(a > maxs) maxs = a;
+        MainP.push_back(a);
+    }
+
+    int countMainP = count(MainP.begin(), MainP.end(), maxs);
+    if(countMainP > 1)
+    {
+        vector<int> AuP1;
+        vector<int> PosPlayer;
+        for(int i = 0; i < MainP.size(); i++)
+          {
+              if(MainP[i] == maxs)
+              {
+                  AuP1.push_back(TheP[i].auxiliaryPoint1);
+                  PosPlayer.push_back(i);
+              }
+          }
+        maxs = 0;
+        for(int i = 0; i < AuP1.size(); i++)
+        {
+            int a = AuP1[i];
+            if(a > maxs) maxs = a;
+        }
+        int countAuP1 = count(AuP1.begin(), AuP1.end(), maxs);
+        if(countAuP1 > 1)
+        {
+            vector<int> AuP2;
+            vector<int> PosPlayer2;
+            for(int i = 0; i < AuP1.size(); i++)
+            {
+              if(AuP1[i] == maxs)
+              {
+                  int needPos = PosPlayer[i];
+                  AuP2.push_back(TheP[needPos].auxiliaryPoint2);
+                  PosPlayer2.push_back(needPos);
+              }
+            }
+          maxs = 0;
+          for(int i = 0; i < AuP2.size(); i++)
+          {
+            int a = AuP2[i];
+            if(a > maxs) maxs = a;
+          }
+          int countAuP2 = count(AuP2.begin(), AuP2.end(), maxs);
+          if(countAuP2 > 1)
+          {
+              for(int i = 0; i < AuP2.size(); i++)
+              {
+                  int a = AuP2[i];
+                  if(a == maxs)
+                  {
+                     Tied = true;
+                     TiedPeople.push_back(PosPlayer2[i]);
+                  }
+              }
+
+          }
+          else
+          {
+              for(int i = 0; i < AuP2.size(); i++)
+              {
+                  int a = AuP2[i];
+                  if(a == maxs)
+                  {
+                      TheWinner = PosPlayer2[i];
+                  }
+              }
+          }
+        }
+        else
+        {
+            for(int i = 0; i < AuP1.size(); i++)
+            {
+                int a = AuP1[i];
+                if(a == maxs)
+                    TheWinner = PosPlayer[i];
+            }
+        }
+    }
+    else
+    {
+          for(int i = 0; i < MainP.size(); i++)
+          {
+              if(MainP[i] == maxs)
+              {
+                  TheWinner = i;
+              }
+          }
+    }
+
+
+    if( Tied == true)
+    {
+        int numOfTied = TiedPeople.size();
+        cout << numOfTied << " people are tied: " << endl;
+        int MoneyPlus = MIP / numOfTied;
+        for(int i = 0; i < numOfTied; i++)
+        {
+            cout << "Player" << TiedPeople[i] + 1 << endl ;
+            TheP[i].TotalPlayerMoney += MoneyPlus;
+        }
+
+    }
+    else
+    {
+            cout << "The Winner is : Player" << TheWinner+1 << " !!!!" << endl;
+            TheP[TheWinner].TotalPlayerMoney += MIP;
+    }
 }
 
 

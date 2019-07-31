@@ -14,6 +14,7 @@ using namespace std;
 struct Cards{
     string Suits;
     int Number;
+    bool Show = false;
     Cards(int Number_, string Suits_){
         Number = Number_;
         Suits = Suits_;
@@ -24,7 +25,7 @@ struct Cards{
     }
     void HideCards()
     {
-        cout << " ***** " << endl;
+        cout << " _ _ _ " << endl;
     }
 };
 class Deck{
