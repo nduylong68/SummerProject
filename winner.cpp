@@ -1,5 +1,6 @@
 #include "winner.h"
 
+
 int winner::Point_Is_Straight(vector<Cards>wholeCard, int &straightP)
 {
     int point = 0;
@@ -224,31 +225,63 @@ void winner::AnouncePrize(int final_point)
             }
         }
 }
+
+
+int winner::CountPlayer(vector<Players> p)
+{
+        int countP = 0;
+        for(int i = 0; i < p.size(); i++)
+        {
+            if (p[i].bet == true) countP += 1;
+        }
+        return countP;
+}
+
 void winner::DetermineWinner(vector<Players> &TheP, int MIP)
 {
     int TheWinner;
     bool Tied = false;
     vector<int> TiedPeople;
+    if(CountPlayer(TheP) == 1)
+    {
+        for(int i = 0; i < TheP.size(); i++)
+        {
+            if(TheP[i].bet == true)
+            {
+                TheWinner = i;
+                break;
+            }
+
+        }
+    }
+    else
+    {
+
     vector<int> MainP;
+    vector<int> PosPlayer;
     int maxs = 0;
     for(int i = 0; i < TheP.size(); i++)
     {
-        int a = TheP[i].mainPoint;
-        if(a > maxs) maxs = a;
-        MainP.push_back(a);
+        if(TheP[i].bet == true)
+        {
+            int a = TheP[i].mainPoint;
+            if(a > maxs) maxs = a;
+            MainP.push_back(a);
+            PosPlayer.push_back(i);
+        }
     }
 
     int countMainP = count(MainP.begin(), MainP.end(), maxs);
     if(countMainP > 1)
     {
         vector<int> AuP1;
-        vector<int> PosPlayer;
+        vector<int> PosPlayer1;
         for(int i = 0; i < MainP.size(); i++)
           {
               if(MainP[i] == maxs)
               {
                   AuP1.push_back(TheP[i].auxiliaryPoint1);
-                  PosPlayer.push_back(i);
+                  PosPlayer1.push_back(PosPlayer[i]);
               }
           }
         maxs = 0;
@@ -266,7 +299,7 @@ void winner::DetermineWinner(vector<Players> &TheP, int MIP)
             {
               if(AuP1[i] == maxs)
               {
-                  int needPos = PosPlayer[i];
+                  int needPos = PosPlayer1[i];
                   AuP2.push_back(TheP[needPos].auxiliaryPoint2);
                   PosPlayer2.push_back(needPos);
               }
@@ -309,7 +342,7 @@ void winner::DetermineWinner(vector<Players> &TheP, int MIP)
             {
                 int a = AuP1[i];
                 if(a == maxs)
-                    TheWinner = PosPlayer[i];
+                    TheWinner = PosPlayer1[i];
             }
         }
     }
@@ -319,9 +352,11 @@ void winner::DetermineWinner(vector<Players> &TheP, int MIP)
           {
               if(MainP[i] == maxs)
               {
-                  TheWinner = i;
+                  TheWinner = PosPlayer[i];
               }
           }
+    }
+
     }
 
 

@@ -37,8 +37,20 @@ namespace Cf{
     }
 
     void PrintCard(vector<Players>p, vector<Cards>b){
+
+        cout << "                          MONEY IN POT:  " << MoneyInPot << endl;
+        cout << endl << endl;
        for (int i = 0; i < p.size(); i++){
-            cout << "PLAYER " << i + 1 << "'S CARDS "  << endl;
+            cout << "PLAYER " << i + 1 << "'S CARDS ";
+            if (p[i].bet == false)
+            {
+                cout << "          FOLD" << "           Money left: " << p[i].TotalPlayerMoney << endl;
+            }
+            else
+            {
+                cout << "          bet: " << p[i].betMoney <<"               Total Betted:  " << p[i].TotalBettedMoney
+                                                                            <<"           Money left: " << p[i].TotalPlayerMoney << endl;
+            }
             for (int j = 0 ; j < 2; j++){
                 if(p[i].hands[j].Show == true){
                     p[i].hands[j].ShowCards();
@@ -63,11 +75,14 @@ namespace Cf{
 
 
     }
+
+
     void clearScreen(){
         for (int i = 0; i < 33; i++){
             cout << endl;
         }
     }
+
 
 }
 

@@ -12,6 +12,7 @@ Players::Players()
     betMoney = 0;
     bet = true;
     TotalPlayerMoney = 4000;
+    TotalBettedMoney = 0;
 }
 
 Players::~Players()
@@ -26,10 +27,14 @@ void Players::TakeCards(Cards cc)
 bool Players::AskPeek(int pos)
 {
     char answer;
+    bool result = true;
+    if(bet == true)
+    {
     cout <<"PLAYER " << pos+1 << " DO YOU WANT TO SEE CARDS ?  Y/N  " << endl;
     cin >> answer;
-    bool result = true;
     answer == 'Y' ? result = true : result = false;
+    }
+    else result = false;
     return result;
 }
 
@@ -141,15 +146,18 @@ int Players::EvaluateCards(vector<Cards>TableCards)
 
 void Players::SetBet(int Bet_Val, int &MIP)
 {
-    betMoney = Bet_Val;
-    TotalPlayerMoney -= betMoney;
+    betMoney += Bet_Val;
+    TotalPlayerMoney -= Bet_Val;
     MIP += betMoney;
+    TotalBettedMoney += Bet_Val;
 
     cout << "Bet Money: " << betMoney << endl;
 
 }
 
 void Players::BettingProcess(int &minBet, int &MIP){
+    if(bet == true)
+    {
     cout << "What is your choice ? c (call) / r (raise) / f (fold) " << endl;
     char ans;
     cin >> ans;
@@ -169,7 +177,12 @@ void Players::BettingProcess(int &minBet, int &MIP){
     }
     else if (ans == 'c')
     {
-        SetBet(minBet, MIP);
+        if(betMoney < minBet)
+        {
+        int addMoney = minBet - betMoney;
+        SetBet(addMoney, MIP);
+        }
     }
-    //else bet = false;
+    else bet = false;
+    }
 }

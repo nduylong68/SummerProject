@@ -81,52 +81,83 @@ int main(int argc, char* argv[])
 
                         if(recPos > n) recPos -= n;
                         cout << "PLAYER " << recPos << endl;
-                         if (player[recPos-1].bet == false ) cout << "false" << endl;
-                        else cout << "true" << endl;
                         player[recPos-1].BettingProcess(mBet, MoneyInPot);
-                        if (player[recPos-1].bet == false ) cout << "false" << endl;
-                        else cout << "true" << endl;
                         recPos += 1;
                     }
                 }
-                break;
-            }
-            case 2:{
-                cout << "stage 2" << endl;
+
                 for (int i = 0; i < 3; i++){
                     board[i].Show = true;
                 }
+                for(int i = 0; i < player.size(); i++)
+                {
+                    player[i].ResetBetMoney();
+                }
+                    break;
+            }
+            case 2:{
+              /*  for (int i = 0; i < 3; i++){
+                    board[i].Show = true;
+                } */
+                cout << "stage 2" << endl;
+                int mBet2 = 0;
+               do {
+                int recPos = small_blind; // recPos = recent position
                 for(int i = 1; i <= n; i++)
                     {
-                        int recPos = small_blind; // recPos = recent position
                         if(recPos > n) recPos -= n;
                         cout << "PLAYER " << recPos << endl;
-                        player[recPos].BettingProcess(mBet, MoneyInPot);
+                        player[recPos-1].BettingProcess(mBet2, MoneyInPot);
                         recPos += 1;
                     }
-
+                }
+                while ( MoneyBettingHandler(player, mBet2) != true);
+                board[3].Show = true;
+                for(int i = 0; i < player.size(); i++)
+                {
+                    player[i].ResetBetMoney();
+                }
                 break;
             }
             case 3:{
-                board[3].Show = true;
+                // board[3].Show = true;
+                cout << "stage 3" << endl;
+                   int mBet3 = 0;
+
+               do {
+                int recPos = small_blind; // recPos = recent position
                 for(int i = 1; i <= n; i++)
                     {
-                        int recPos = small_blind; // recPos = recent position
                         if(recPos > n) recPos -= n;
-                        player[recPos].BettingProcess(mBet, MoneyInPot);
+                        cout << "PLAYER " << recPos << endl;
+                        player[recPos-1].BettingProcess(mBet3, MoneyInPot);
                         recPos += 1;
                     }
+                }
+                while ( MoneyBettingHandler(player, mBet3) != true);
+                board[4].Show = true;
+                for(int i = 0; i < player.size(); i++)
+                {
+                    player[i].ResetBetMoney();
+                }
                 break;
             }
             case 4:{
-                board[4].Show = true;
+                cout << "stage 4" << endl;
+
+                //board[4].Show = true;
+                int mBet4 = 0;
+              do {
+                int recPos = small_blind; // recPos = recent position
                 for(int i = 1; i <= n; i++)
                     {
-                        int recPos = small_blind; // recPos = recent position
                         if(recPos > n) recPos -= n;
-                        player[recPos].BettingProcess(mBet, MoneyInPot);
+                        cout << "PLAYER " << recPos << endl;
+                        player[recPos-1].BettingProcess(mBet4, MoneyInPot);
                         recPos += 1;
                     }
+                }
+                while ( MoneyBettingHandler(player, mBet4) != true);
                 break;
             }
         }
@@ -151,6 +182,11 @@ int main(int argc, char* argv[])
     }
 
     DetermineWinner(player, MoneyInPot);
+    cout << endl;
+    for(int i = 0; i < player.size(); i++)
+    {
+        cout << "Player" << i+1 <<" 's money: " << player[i].TotalPlayerMoney << endl;
+    }
 
 
     /*_______________________________________________

@@ -159,3 +159,41 @@
 	"players.h"
 	"winner.h"
 
+1564574922 source:e:\github\summerproject\deck.cpp
+	"deck.h"
+
+1564574922 e:\github\summerproject\deck.h
+	<vector>
+	<string>
+	<ctime>
+	<cstdlib>
+	<algorithm>
+	<iostream>
+	<set>
+
+1564662979 source:e:\github\summerproject\main.cpp
+	<iostream>
+	"deck.h"
+	"players.h"
+	"winner.h"
+	"commonFunction.h"
+
+1564664173 e:\github\summerproject\players.h
+	"deck.h"
+	"winner.h"
+
+1564664173 e:\github\summerproject\winner.h
+	"players.h"
+	"deck.h"
+
+1564664132 e:\github\summerproject\commonfunction.h
+	"deck.h"
+	"players.h"
+	"winner.h"
+
+1564664216 source:e:\github\summerproject\winner.cpp
+	"winner.h"
+
+1564662562 source:e:\github\summerproject\players.cpp
+	"players.h"
+

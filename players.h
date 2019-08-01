@@ -14,6 +14,8 @@ public:
     bool AskPeek(int pos); // hoi de xem bai
     void BettingProcess(int &minBet, int &MIP);
     void SetBet(int Bet_Val, int &MIP);
+    void ResetBetMoney() { betMoney = 0; };
+    void ResetTotalBettedMoney() { TotalBettedMoney = 0;};
 
     int EvaluateCards(vector<Cards> TableCard);
     int mainPoint;
@@ -21,7 +23,7 @@ public:
     int auxiliaryPoint2;
 
     bool bet;
-    int TotalPlayerMoney, betMoney;
+    int TotalPlayerMoney, betMoney, TotalBettedMoney;
 
 
 };
@@ -29,6 +31,7 @@ public:
 namespace winner
 {
     void DetermineWinner(vector<Players> &TheP, int MIP);
+    int CountPlayer(vector<Players> p);
 
 }
 #endif // PLAYERS_H
