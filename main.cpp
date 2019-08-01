@@ -43,6 +43,7 @@ int main(int argc, char* argv[])
     }*/
     for (int bet_turn = 1; bet_turn <= 4; bet_turn++){
 
+        if (CountPlayer(player) == 1) break;
         clearScreen();
         PrintCard(player, board);
         for (int i = 0; i < n; i++){
@@ -170,6 +171,7 @@ int main(int argc, char* argv[])
         player[num].hands[1].Show = true;
         player[num].EvaluateCards(board);
     }
+     for (int i = 0; i < 5; i++) { board[i].Show = true; }
 
 
     cout << "SHOW DOWN" << endl;
